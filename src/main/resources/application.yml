@@ -1,0 +1,45 @@
+micronaut:
+  application:
+    name: micronaut-server
+  server:
+    port: ${PORT}
+    cors:
+      enabled: true
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger-ui
+        mapping: /swagger-ui/**
+      redoc:
+        paths: classpath:META-INF/redoc
+        mapping: /redoc/**
+
+postgres:
+  reactive:
+    client:
+      port: ${DB_PORT}
+      host: ${DB_HOST}
+      database: ${DB_NAME}
+      user: ${DB_USER}
+      password: ${DB_PASSWORD}
+      maxSize: 5
+
+flyway:
+  datasources:
+    default:
+      url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+      username: ${DB_USER}
+      password: ${DB_PASSWORD}
+      locations: classpath:migrations
+
+custom:
+  example: value
+  server:
+    base-path: /api
+    secret: ${SECRET}
+  integrations:
+    placeholder:
+      url: ${PLACEHOLDER_API_URL}
