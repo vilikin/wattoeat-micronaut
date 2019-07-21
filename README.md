@@ -1,6 +1,6 @@
 # Wattoeat
 
-Simple microservice demonstrating how to set up simple reactive API, reactive HTTP client, reactive Postgres client, Swagger and basic configuration utilising Micronaut framework.
+Helps in choosing what to eat next.
 
 ## Running service
 

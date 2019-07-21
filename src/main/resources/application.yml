@@ -36,10 +36,9 @@ flyway:
       locations: classpath:migrations
 
 custom:
-  example: value
   server:
     base-path: /api
     secret: ${SECRET}
-  integrations:
-    placeholder:
-      url: ${PLACEHOLDER_API_URL}
+  contentful:
+    space: wxsyaalbbpwe
+    token: 44712f40f3ca37feb5a80c2ac9b442657b714dcf00900bca200d887f7788fc6a

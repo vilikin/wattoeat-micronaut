@@ -24,5 +24,3 @@ custom:
   server:
     secret: secret
   integrations:
-    placeholder:
-      url: http://localhost:9090

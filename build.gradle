@@ -60,6 +60,9 @@ dependencies {
     compile "io.micronaut.configuration:micronaut-postgres-reactive"
     compile "io.micronaut.configuration:micronaut-flyway"
     compile "org.postgresql:postgresql:9.3-1100-jdbc4"
+
+    // Contentful
+    compile 'com.contentful.java:java-sdk:10.4.0'
 }
 
 swaggerSources {

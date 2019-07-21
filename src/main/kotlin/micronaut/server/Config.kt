@@ -4,12 +4,17 @@ import io.micronaut.context.annotation.ConfigurationProperties
 
 @ConfigurationProperties("custom")
 class Config(
-  val server: ServerConfig
-) {
-  lateinit var example: String
-}
+  val server: ServerConfig,
+  val contentful: ContentfulConfig
+)
 
 @ConfigurationProperties("custom.server")
 class ServerConfig {
   lateinit var secret: String
+}
+
+@ConfigurationProperties("custom.contentful")
+class ContentfulConfig {
+  lateinit var space: String
+  lateinit var token: String
 }
