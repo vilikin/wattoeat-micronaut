@@ -8,8 +8,6 @@ plugins {
     id "org.hidetake.swagger.generator" version "2.18.1"
 }
 
-
-
 version "0.1"
 group "micronaut.server"
 
@@ -66,7 +64,7 @@ dependencies {
 
 swaggerSources {
     api {
-        inputFile = file("$buildDir/tmp/kapt3/classes/main/META-INF/swagger/micronaut-boilerplate-1.0.yml")
+        inputFile = file("$buildDir/tmp/kapt3/classes/main/META-INF/swagger/wattoeat-api-1.0.yml")
         ui {
             outputDir = file("$buildDir/tmp/kapt3/classes/main/META-INF/swagger-ui")
         }

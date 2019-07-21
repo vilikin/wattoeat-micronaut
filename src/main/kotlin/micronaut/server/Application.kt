@@ -6,9 +6,9 @@ import io.swagger.v3.oas.annotations.info.Info
 
 @OpenAPIDefinition(
   info = Info(
-    title = "Micronaut Boilerplate",
+    title = "Wattoeat API",
     version = "1.0",
-    description = "Micronaut Boilerplate API"
+    description = "Wattoeat API"
   )
 )
 object Application {

@@ -1,4 +1,4 @@
-# Micronaut Boilerplate
+# Wattoeat
 
 Simple microservice demonstrating how to set up simple reactive API, reactive HTTP client, reactive Postgres client, Swagger and basic configuration utilising Micronaut framework.
 
@@ -42,6 +42,6 @@ Easiest way is to use Gradle test runner, it worked out of the box with annotati
 
 The server exposes raw OpenAPI YML file, Swagger UI and ReDoc:
 
-Raw YML: /swagger/micronaut-boilerplate-1.0.yml
+Raw YML: /swagger/wattoeat-1.0.yml
 Swagger UI: /swagger-ui/
 ReDoc: /redoc/

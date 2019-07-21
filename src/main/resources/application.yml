@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: micronaut-server
+    name: wattoeat
   server:
     port: ${PORT}
     cors:
