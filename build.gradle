@@ -25,7 +25,7 @@ dependencyManagement {
 
 configurations {
     // for dependencies that are needed for development only
-    developmentOnly 
+    developmentOnly
 }
 
 dependencies {
@@ -55,7 +55,7 @@ dependencies {
     kapt "io.micronaut.configuration:micronaut-openapi"
     compile "io.swagger.core.v3:swagger-annotations"
     swaggerUI "org.webjars:swagger-ui:3.10.0"
-    
+
     // DB
     compile "io.micronaut.configuration:micronaut-postgres-reactive"
     compile "io.micronaut.configuration:micronaut-flyway"
@@ -63,6 +63,7 @@ dependencies {
 
     // Contentful
     compile 'com.contentful.java:java-sdk:10.4.0'
+    compile 'com.contentful.java:cma-sdk:3.3.2'
 }
 
 swaggerSources {
@@ -102,16 +103,16 @@ allOpen {
 
 compileKotlin {
 	kotlinOptions {
-	    jvmTarget = "1.8" 
+	    jvmTarget = "1.8"
 	    //Will retain parameter names for Java reflection
-	    javaParameters = true 
+	    javaParameters = true
 	}
 }
 
 compileTestKotlin {
 	kotlinOptions {
-	    jvmTarget = "1.8" 
-	    javaParameters = true 
+	    jvmTarget = "1.8"
+	    javaParameters = true
 	}
 }
 

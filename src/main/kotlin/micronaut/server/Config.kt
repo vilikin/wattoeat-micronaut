@@ -16,5 +16,6 @@ class ServerConfig {
 @ConfigurationProperties("custom.contentful")
 class ContentfulConfig {
   lateinit var space: String
-  lateinit var token: String
+  lateinit var cda_token: String
+  lateinit var cma_token: String
 }
