@@ -8,7 +8,6 @@ import io.micronaut.http.filter.HttpServerFilter
 import io.micronaut.http.filter.ServerFilterChain
 import io.reactivex.rxkotlin.toFlowable
 import micronaut.server.Config
-import micronaut.server.http.ErrorResponse
 import org.reactivestreams.Publisher
 
 @Filter("\${custom.server.base-path:}/**")

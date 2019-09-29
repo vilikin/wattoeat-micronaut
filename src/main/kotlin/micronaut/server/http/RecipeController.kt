@@ -1,9 +1,9 @@
 package micronaut.server.http
 
-import com.contentful.java.cma.model.CMAAsset
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.MediaType.MULTIPART_FORM_DATA
+import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
@@ -14,7 +14,15 @@ import micronaut.server.core.Recipe
 import micronaut.server.core.RecipeService
 import java.io.File
 
-data class UploadResult(val status: String, val asset: CMAAsset)
+data class CreateRecipeBody(
+  val name: String,
+  val imageAssetId: String?,
+  val ingredients: Array<String>?,
+  val instructions: String?,
+  val link: String?
+)
+
+data class CreateImageAssetResponse(val id: String)
 
 @Controller("\${custom.server.base-path:}/recipes")
 class RecipeController(
@@ -31,8 +39,13 @@ class RecipeController(
     return recipeService.findRecipe(id)
   }
 
-  @Post("/assets", consumes = [MULTIPART_FORM_DATA])
-  fun createImageAsset(image: StreamingFileUpload): Single<CMAAsset> {
+  @Post
+  fun createRecipe(@Body body: CreateRecipeBody): Single<Recipe> {
+    return recipeService.createRecipe(body)
+  }
+
+  @Post("/images", consumes = [MULTIPART_FORM_DATA])
+  fun createImageAsset(image: StreamingFileUpload): Single<CreateImageAssetResponse> {
     if (image.contentType.get() != MediaType.IMAGE_JPEG_TYPE) {
       throw HttpError(HttpStatus.BAD_REQUEST, "Only JPEG images allowed")
     }
@@ -47,7 +60,7 @@ class RecipeController(
         if (success) {
           val asset = recipeService.createImageAsset(image.filename, file)
           file.delete()
-          asset
+          CreateImageAssetResponse(asset.id)
         } else {
           throw HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Couldn't upload")
         }

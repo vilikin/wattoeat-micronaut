@@ -2,10 +2,13 @@ package micronaut.server.core
 
 import com.contentful.java.cda.CDAAsset
 import com.contentful.java.cda.CDAClient
-import com.contentful.java.cda.TransformQuery.*
+import com.contentful.java.cda.TransformQuery.ContentfulEntryModel
+import com.contentful.java.cda.TransformQuery.ContentfulField
+import com.contentful.java.cda.TransformQuery.ContentfulSystemField
 import com.contentful.java.cma.CMAClient
 import com.contentful.java.cma.model.CMAAsset
 import com.contentful.java.cma.model.CMAAssetFile
+import com.contentful.java.cma.model.CMAEntry
 import com.contentful.java.cma.model.CMALink
 import com.contentful.java.cma.model.CMASystem
 import com.contentful.java.cma.model.CMAType
@@ -14,6 +17,7 @@ import io.micronaut.http.HttpStatus
 import io.reactivex.Flowable
 import io.reactivex.Single
 import micronaut.server.Config
+import micronaut.server.http.CreateRecipeBody
 import micronaut.server.http.HttpError
 import java.io.File
 import javax.inject.Singleton
@@ -40,7 +44,7 @@ class Recipe(
   val contentfulId: String
 ) {
   val imageUrl: String?
-    get() = if (image != null) "https://${image.url()}" else null
+    get() = if (image != null) "https:${image.url()}" else null
 
   // Empty constructor for Contentful to be able to instantiate the class
   constructor(): this("", listOf(), null, null, null, "")
@@ -75,6 +79,41 @@ class RecipeService(
       .onErrorResumeNext { e: Throwable ->
         Single.error(HttpError(HttpStatus.NOT_FOUND, "No recipe found with given id", e))
       }
+  }
+
+  fun createRecipe(
+    body: CreateRecipeBody
+  ): Single<Recipe> {
+    val entry = CMAEntry()
+
+    entry.setField("name", "fi", body.name)
+
+    body.imageAssetId?.let {
+      val imageAssetLink = CMALink()
+        .setSystem(
+          CMASystem()
+            .setType(CMAType.Link)
+            .setLinkType(CMAType.Asset)
+            .setId(it)
+        )
+      entry.setField("image", "fi", imageAssetLink)
+    }
+
+    body.ingredients?.let {
+      entry.setField("ingredients", "fi", it)
+    }
+
+    body.instructions?.let {
+      entry.setField("instructions", "fi", it)
+    }
+
+    body.link?.let {
+      entry.setField("link", "fi", it)
+    }
+
+    val createdEntry = cmaClient.entries().create("recipe", entry)
+    val publishedEntry = cmaClient.entries().publish(createdEntry)
+    return findRecipe(publishedEntry.id)
   }
 
   fun createImageAsset(name: String, image: File): CMAAsset {
